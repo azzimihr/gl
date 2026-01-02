@@ -3,8 +3,8 @@
 #include <print>
 #include <random>
 #include <cstdlib>
-#define ELEMENT GL_ELEMENT_ARRAY_BUFFER
-#define ARRAY GL_ARRAY_BUFFER
+#define INDEX GL_ELEMENT_ARRAY_BUFFER
+#define VERTEX GL_ARRAY_BUFFER
 using namespace std;
 
 typedef unsigned int ui;

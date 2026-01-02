@@ -16,8 +16,8 @@ int main(){
   
   genBuffers(VAO, VBO, VBO);
   
-  bindData(VBO, ARRAY, vertices, sizeof(vertices));
-  bindData(EBO, ELEMENT, indices, sizeof(indices));
+  bindData(VBO, VERTEX, vertices, sizeof(vertices));
+  bindData(EBO, INDEX, indices, sizeof(indices));
 
   ui p1 = Program(&vs1, &fs1);
   ui p2 = Program(&vs1, &fs2);
