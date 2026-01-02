@@ -19,10 +19,10 @@ ui Shader(ui type, const char **source, ui program){
   return shader;
 }
 
-ui Program(const char **vs, const char **fs){
+ui Program(const char * &vs, const char * &fs){
   ui program = glCreateProgram();
-  ui vert = Shader(GL_VERTEX_SHADER, vs, program);
-  ui frag = Shader(GL_FRAGMENT_SHADER, fs, program);
+  ui vert = Shader(GL_VERTEX_SHADER, &vs, program);
+  ui frag = Shader(GL_FRAGMENT_SHADER, &fs, program);
   
   glLinkProgram(program);
   glDeleteShader(frag);

@@ -6,3 +6,5 @@ typedef unsigned int ui;
 typedef float f;
 
 using namespace std;
+
+ui VAO[2], VBO[2];
