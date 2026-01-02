@@ -1,5 +1,10 @@
-#include "funcs.hpp"
-#include "data.hpp"
+#include "window.h"
+#include "shorthands.h"
+#include "data.h"
+#include "returns.h"
+#include <print>
+
+#include "enum.h"
 
 ui VAO, VBO, EBO;
 

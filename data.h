@@ -1,3 +1,5 @@
+#pragma once
+
 const char *vs1 =
 #include "vs/1"
 ;const char *fs1 =
