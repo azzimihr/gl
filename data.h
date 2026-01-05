@@ -12,15 +12,17 @@ const char *vs1 =
 #include "fs/3.glsl"
 ;
 
-f vertices[18] = {
+#include "enum.h"
+
+f vertices[] = {
   // first triangle
   -0.9f, -0.5f, 0.0f, //color not here...
   -0.0f, -0.5f, 0.0f,
   -0.45f, 0.5f, 0.0f,
 
-   0.0f, -0.5f, 0.0f,
-   0.9f, -0.5f, 0.0f,
-   0.45f, 0.5f, 0.0f
+   0.5f, -0.5f, 0.0f,
+   -0.5f, -0.5f, 0.0f,
+   0.0f,  0.5f, 0.0f,
 };
 
 f vertices2[] = {

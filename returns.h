@@ -6,7 +6,7 @@
 #include "enum.h"
 
 f randF(){
-  thread_local mt19937 gen(random_device{}());;
+  static thread_local mt19937 gen(random_device{}());;
   static uniform_real_distribution<f> dist{0.0, 1.0};
   return dist(gen);
 }

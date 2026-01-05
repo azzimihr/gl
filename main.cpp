@@ -2,9 +2,10 @@
 #include "shorthands.h"
 #include "data.h"
 #include "returns.h"
-#include <print>
+#include <cmath>
 
 #include "enum.h"
+
 
 void processInput(){
   key(GLFW_KEY_ESCAPE, []{
@@ -34,21 +35,28 @@ int main(){
     processInput();
 
     fps=(++fps)%120;
+    auto nes = sin(fps/M_PI/15);
+    color(0.4f, nes*nes/1.5, 0.4f);
 
-    color(0.4f, f(fps)/150, 0.4f);
-
-    uniform4(p2, "color", randF()/2+0.499, randF()/4.0+0.749, randF()/2, std::abs(f(60-fps))/60.0);
-    
+    uni4(p2, "color",
+      randF()/2+0.499,
+      randF()/4.0+0.749,
+      randF()/2,
+      std::abs(f(60-fps))/60.0/4.5+0.2
+    );
 
     glBindVertexArray(VAO[1]);
-    tri(0, 3, p3);
+    glUseProgram(p3);
+    tri(0, 3);
     glBindVertexArray(VAO[0]);
-    if (randF()<fps/60.0)
-      tri(0, 3, p1);
-    tri(3, 3, p2);
+    if (randF()<fps/60.0){
+      glUseProgram(p1);
+      tri(0, 3);
+    }
+    glUseProgram(p2);
+    tri(3, 3);
     
-    glfwSwapBuffers(window);
-    glfwPollEvents();    
+    swapBuffs();
   }
 
   glfwTerminate();

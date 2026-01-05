@@ -18,19 +18,30 @@ void initGL(int maj, int min){
 }
 
 void winGL(int w, int h, const char* title){
+  constexpr f aspect = 4.0 / 3.0;
   window = glfwCreateWindow(w, h, title, NULL, NULL);
   glfwMakeContextCurrent(window);
   glfwSwapInterval(1);
   gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-  glfwSetFramebufferSizeCallback(window, [](GLFWwindow* win, int w, int h) {
-    (void)win;
-    glViewport(0, 0, w, h);
+  glfwSetFramebufferSizeCallback(window, [](GLFWwindow* win, int w, int h) { (void)win;
+    f current = (f)w / (f)h;
+    f val = current/aspect;
+    if (val > 1)
+      glViewport(w*(1-1/val)/2, 0, w/val, h);
+    else
+      glViewport(0, h*(1-val)/2, w, h*val);
+    println("Window: {}x{}", w, h);
   });
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   println("Window: {}x{}", w, h);
+}
+
+void swapBuffs(){
+  glfwSwapBuffers(window);
+  glfwPollEvents();   
 }
 
 template<typename Fn> void key(int k, Fn&& action) {
