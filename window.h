@@ -1,11 +1,8 @@
 #pragma once
 
-#include "glad/glad.h"
-#include <GLFW/glfw3.h>
-#include <cstdlib>
-#include <print>
-
 #include "enum.h"
+
+#include <print>
 
 GLFWwindow* window;
 
@@ -18,15 +15,15 @@ void initGL(int maj, int min){
 }
 
 void winGL(int w, int h, const char* title){
-  constexpr f aspect = 4.0 / 3.0;
+  constexpr f32 aspect = 4.0 / 3.0;
   window = glfwCreateWindow(w, h, title, NULL, NULL);
   glfwMakeContextCurrent(window);
   glfwSwapInterval(1);
   gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
   glfwSetFramebufferSizeCallback(window, [](GLFWwindow* win, int w, int h) { (void)win;
-    f current = (f)w / (f)h;
-    f val = current/aspect;
+    f32 current = (f32)w / (f32)h;
+    f32 val = current/aspect;
     if (val > 1)
       glViewport(w*(1-1/val)/2, 0, w/val, h);
     else

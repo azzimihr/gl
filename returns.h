@@ -1,31 +1,39 @@
 #pragma once
 
+#include "window.h"
+
 #include <random>
-#include "glad/glad.h"
 
-#include "enum.h"
-
-f randF(){
+f32 randF(){
   static thread_local mt19937 gen(random_device{}());;
-  static uniform_real_distribution<f> dist{0.0, 1.0};
+  static uniform_real_distribution<f32> dist{0.0, 1.0};
   return dist(gen);
 }
 
-ui Shader(ui type, const char **source, ui program){
-  ui shader = glCreateShader(type);
+u32 Shader(u32 type, const char **source, u32 program){
+  u32 shader = glCreateShader(type);
   glShaderSource(shader, 1, source, NULL);
   glCompileShader(shader);
   glAttachShader(program, shader);
   return shader;
 }
 
-ui Program(const char * &vs, const char * &fs){
-  ui program = glCreateProgram();
-  ui vert = Shader(GL_VERTEX_SHADER, &vs, program);
-  ui frag = Shader(GL_FRAGMENT_SHADER, &fs, program);
-  
+u32 Program(const char * &vs, const char * &fs){
+  u32 program = glCreateProgram();
+  u32 vert = Shader(GL_VERTEX_SHADER, &vs, program);
+  u32 frag = Shader(GL_FRAGMENT_SHADER, &fs, program);
+
   glLinkProgram(program);
   glDeleteShader(frag);
   glDeleteShader(vert);
+  
+  int success;
+  glGetProgramiv(program, GL_LINK_STATUS, &success);
+  if (!success) {
+    char infoLog[512];
+    glGetProgramInfoLog(program, 512, NULL, infoLog);
+    println("shader error!: {}", infoLog);
+  }
+  
   return program;
 }

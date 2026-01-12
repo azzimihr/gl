@@ -1,10 +1,7 @@
-#include "window.h"
-#include "shorthands.h"
 #include "data.h"
-#include "returns.h"
 #include <cmath>
+#include <chrono>
 
-#include "enum.h"
 
 
 void processInput(){
@@ -12,27 +9,38 @@ void processInput(){
     glfwSetWindowShouldClose(window, true);
   });
   key(GLFW_KEY_F11, []{
-    
+
   });
 }
 
 int main(){
   initGL(3, 3);
   winGL(800, 600, "GL");
+  glfwSwapInterval(0); // vsync disable
   gen(VAO, VBO);
-  
+
   // bindData(EBO, INDEX, indices, sizeof(indices));
+
+  u32 p1 = Program(vs1, fs1);
+  u32 p2 = Program(vs1, fs2);
+  u32 p3 = Program(vs2, fs3);
   
-  ui p1 = Program(vs1, fs1);
-  ui p2 = Program(vs1, fs2);
-  ui p3 = Program(vs2, fs3);
-  
-  setup<3> (0, 0, vertices);
-  setup<3, 3> (1, 1, vertices2);
+  setup<vap{2, HALF}> (vertices, 0, 0);
+  setup<vap{2, HALF}, vap{4, BYTE}> (vertices2, 1, 1);
   
   int fps = 0;
+  auto lastTime = chrono::high_resolution_clock::now();
+  int frameCount = 0;
   while(!glfwWindowShouldClose(window)){
     processInput();
+    
+    auto currentTime = chrono::high_resolution_clock::now();
+    frameCount++;
+    if(chrono::duration<double>(currentTime - lastTime).count() >= 1.0){
+      println("FPS: {}", frameCount);
+      frameCount = 0;
+      lastTime = currentTime;
+    }
 
     fps=(++fps)%120;
     auto nes = sin(fps/M_PI/15);
@@ -42,7 +50,7 @@ int main(){
       randF()/2+0.499,
       randF()/4.0+0.749,
       randF()/2,
-      std::abs(f(60-fps))/60.0/4.5+0.2
+      std::abs(f32(60-fps))/60.0/4.5+0.2
     );
 
     glBindVertexArray(VAO[1]);
