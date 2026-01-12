@@ -1,8 +1,4 @@
 #include "data.h"
-#include <cmath>
-#include <chrono>
-
-
 
 void processInput(){
   key(GLFW_KEY_ESCAPE, []{
@@ -16,7 +12,7 @@ void processInput(){
 int main(){
   initGL(3, 3);
   winGL(800, 600, "GL");
-  glfwSwapInterval(0); // vsync disable
+  // glfwSwapInterval(0); // vsync disable
   gen(VAO, VBO);
 
   // bindData(EBO, INDEX, indices, sizeof(indices));
@@ -28,7 +24,7 @@ int main(){
   setup<vap{2, HALF}> (vertices, 0, 0);
   setup<vap{2, HALF}, vap{4, BYTE}> (vertices2, 1, 1);
   
-  int fps = 0;
+  int fps = 0;;
   auto lastTime = chrono::high_resolution_clock::now();
   int frameCount = 0;
   while(!glfwWindowShouldClose(window)){
@@ -42,7 +38,7 @@ int main(){
       lastTime = currentTime;
     }
 
-    fps=(++fps)%120;
+    fps = (fps + 1) % 120;
     auto nes = sin(fps/M_PI/15);
     color(0.4f, nes*nes/1.5, 0.4f);
 

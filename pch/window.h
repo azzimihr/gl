@@ -2,8 +2,6 @@
 
 #include "enum.h"
 
-#include <print>
-
 GLFWwindow* window;
 
 void initGL(int maj, int min){

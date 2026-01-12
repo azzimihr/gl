@@ -1,9 +1,6 @@
 #pragma once
 
-#include "returns.h"
-
-#include <cstddef>
-#include <initializer_list>
+#include "pch/returns.h"
 
 u32 VAO[2], VBO[2];
 
@@ -43,9 +40,13 @@ struct vap {
   u32 type;
   
   constexpr u32 byteSize() const {
-    return count * (type == HALF ? 2 : 
-                    type == BYTE ? 1 :
-                    4);
+    return count * [this] {
+      switch (type) {
+        case HALF: return 2;
+        case BYTE: return 1;
+        default:   return 4;
+      }
+    }();
   }
   
   constexpr u32 isNormalized() const {

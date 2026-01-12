@@ -2,8 +2,6 @@
 
 #include "window.h"
 
-#include <random>
-
 f32 randF(){
   static thread_local mt19937 gen(random_device{}());;
   static uniform_real_distribution<f32> dist{0.0, 1.0};
