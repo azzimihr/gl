@@ -4,6 +4,7 @@
 
 GLFWwindow* window;
 
+
 void initGL(int maj, int min){
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, maj);
@@ -12,7 +13,7 @@ void initGL(int maj, int min){
   println("OpenGL {}.{}", maj, min);
 }
 
-void winGL(int w, int h, const char* title){
+void winGL(int w, int h, S title){
   constexpr f32 aspect = 4.0 / 3.0;
   window = glfwCreateWindow(w, h, title, NULL, NULL);
   glfwMakeContextCurrent(window);

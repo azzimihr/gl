@@ -8,7 +8,7 @@ f32 randF(){
   return dist(gen);
 }
 
-u32 Shader(u32 type, const char **source, u32 program){
+u32 Shader(u32 type, S *source, u32 program){
   u32 shader = glCreateShader(type);
   glShaderSource(shader, 1, source, NULL);
   glCompileShader(shader);
@@ -16,7 +16,7 @@ u32 Shader(u32 type, const char **source, u32 program){
   return shader;
 }
 
-u32 Program(const char * &vs, const char * &fs){
+u32 Program(S &vs, S &fs){
   u32 program = glCreateProgram();
   u32 vert = Shader(GL_VERTEX_SHADER, &vs, program);
   u32 frag = Shader(GL_FRAGMENT_SHADER, &fs, program);

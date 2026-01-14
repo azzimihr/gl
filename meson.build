@@ -1,6 +1,6 @@
 project('app', 'cpp', 'c',
   version : '1.0',
-  default_options : ['cpp_std=c++23', 'buildtype=release'])
+  default_options : ['cpp_std=c++26', 'buildtype=release'])
 
 executable('app',
   files('main.cpp', 'glad/glad.c'),
@@ -13,6 +13,23 @@ executable('app',
     dependency('xi'),
     dependency('glm'),
   ],
-  link_args : ['-ldl', '-lstdc++exp'],
-  cpp_args : ['-march=native', '-Wall', '-Wextra', '-Wpedantic', '-Werror'],
-  c_args : ['-march=native', '-Wall', '-Wextra', '-Werror'])
+  link_args : [],
+  cpp_args : [
+    '-std=c++2b',
+    '-march=native',
+    '-O3',
+    '-ffast-math',
+    '-flto=auto',
+    '-fno-signed-zeros',
+    '-fno-trapping-math',
+    '-Wall', '-Wextra', '-Wpedantic', '-Werror'
+  ],
+  c_args : [
+    '-std=c23',
+    '-march=native',
+    '-Oz',
+    '-flto=auto',
+    '-fno-signed-zeros',
+    '-fno-trapping-math',
+    '-Wall', '-Wextra', '-Werror'
+  ])

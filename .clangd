@@ -1,7 +1,0 @@
-CompileFlags:
-  Add:
-    - -std=gnu++23
-
-Diagnostics:
-  Suppress:
-    - ext_using_undefined_std

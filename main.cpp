@@ -21,7 +21,7 @@ int main(){
   u32 p2 = Program(vs1, fs2);
   u32 p3 = Program(vs2, fs3);
   
-  setup<vap{2, HALF}> (vertices, 0, 0);
+  setup<vap{2, HALF}>               (vertices, 0, 0);
   setup<vap{2, HALF}, vap{4, BYTE}> (vertices2, 1, 1);
   
   int fps = 0;;
@@ -42,7 +42,7 @@ int main(){
     auto nes = sin(fps/M_PI/15);
     color(0.4f, nes*nes/1.5, 0.4f);
 
-    uni4(p2, "color",
+    uni(p2, "color",
       randF()/2+0.499,
       randF()/4.0+0.749,
       randF()/2,

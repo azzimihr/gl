@@ -70,10 +70,28 @@ void setup(const v<T>& data, u32 vao, u32 vbo) {
   println("{}",offset);
 }
 
-void uni4(u32 prog, const char* str, f32 x, f32 y, f32 z, f32 w){
-  glUseProgram(prog);
-  glUniform4f(glGetUniformLocation(prog, str), x, y, z, w);
+static unordered_map<uint64_t, i32> loc_cache;
+i32 ul(u32 prog, string_view name) {
+    uint64_t key = (static_cast<uint64_t>(prog) << 32) | hash<string_view>{}(name);
+    auto it = loc_cache.find(key);
+    if (it != loc_cache.end()) return it->second;
+    i32 loc = glGetUniformLocation(prog, name.data());
+    loc_cache[key] = loc;
+    return loc;
 }
+
+void uni(u32 prog, S s, f32 x)                      { glUniform1f(ul(prog, s), x);          }
+void uni(u32 prog, S s, f32 x, f32 y)               { glUniform2f(ul(prog, s), x, y);       }
+void uni(u32 prog, S s, f32 x, f32 y, f32 z)        { glUniform3f(ul(prog, s), x, y, z);    }
+void uni(u32 prog, S s, f32 x, f32 y, f32 z, f32 w) { glUniform4f(ul(prog, s), x, y, z, w); }
+void uni(u32 prog, S s, i32 x)                      { glUniform1i(ul(prog, s), x);          }
+void uni(u32 prog, S s, i32 x, i32 y)               { glUniform2i(ul(prog, s), x, y);       }
+void uni(u32 prog, S s, i32 x, i32 y, i32 z)        { glUniform3i(ul(prog, s), x, y, z);    }
+void uni(u32 prog, S s, i32 x, i32 y, i32 z, i32 w) { glUniform4i(ul(prog, s), x, y, z, w); }
+void uni(u32 prog, S s, u32 x)                      { glUniform1ui(ul(prog, s), x);         }
+void uni(u32 prog, S s, u32 x, u32 y)               { glUniform2ui(ul(prog, s), x, y);      }
+void uni(u32 prog, S s, u32 x, u32 y, u32 z)        { glUniform3ui(ul(prog, s), x, y, z);   }
+void uni(u32 prog, S s, u32 x, u32 y, u32 z, u32 w) { glUniform4ui(ul(prog, s), x, y, z, w);}
 
 void tri(u32 offset, u32 count){
   glDrawArrays(GL_TRIANGLES, offset,count);

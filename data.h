@@ -2,15 +2,15 @@
 
 #include "shorthands.h"
 
-const char *vs1 =
+S vs1 =
 #include "vs/1.glsl"
-;const char *vs2 =
+;S vs2 =
 #include "vs/2.glsl"
-;const char *fs1 =
+;S fs1 =
 #include "fs/1.glsl"
-;const char *fs2 =
+;S fs2 =
 #include "fs/2.glsl"
-;const char *fs3 =
+;S fs3 =
 #include "fs/3.glsl"
 ;
 
