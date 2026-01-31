@@ -10,7 +10,7 @@ void initGL(int maj, int min){
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, maj);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, min);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  println("OpenGL {}.{}", maj, min);
+  println("\nOpenGL {}.{}", maj, min);
 }
 
 void winGL(int w, int h, S title){

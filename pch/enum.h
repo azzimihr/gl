@@ -1,10 +1,11 @@
 #pragma once
 
-#define GLEAB GL_ELEMENT_ARRAY_BUFFER
-#define GLAB GL_ARRAY_BUFFER
+#define _EBO GL_ELEMENT_ARRAY_BUFFER
+#define _VBO GL_ARRAY_BUFFER
 
 #define HALF GL_HALF_FLOAT
 #define BYTE GL_UNSIGNED_BYTE
+#define SHORT GL_SHORT
 
 #include <cstdint>
 #include <cstdlib>
@@ -40,4 +41,4 @@ typedef size_t sz;
 typedef const char* S;
 
 template<typename T> using v = vector<T>;
-constexpr auto f16conv = glm::packHalf1x16;
+constexpr auto f16 = glm::packHalf1x16;

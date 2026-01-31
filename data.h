@@ -25,9 +25,9 @@ auto vertices = f16pack({
 });
 
 const v<Vertex> vertices2 = {
-    {0.5f, -0.5f,   255, 0, 0,255},      // bottom right - red
-    {-0.5f,-0.5f,   0, 255, 0,255},     // bottom left - green
-    {0.0f,  0.5f,   0, 0, 255,255}        // top - blue
+    {16384, -16384,   255, 0, 0,255},      // bottom right - red
+    {-16384,-16384,   0, 255, 0,255},     // bottom left - green
+    {0,      16384,   0, 0, 255,255}        // top - blue
 };
 
 u32 indices[] = {

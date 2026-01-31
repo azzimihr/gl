@@ -8,11 +8,25 @@ f32 randF(){
   return dist(gen);
 }
 
+void error(void(*getiv)(u32, u32, int*), void(*infologger)(u32, int, int*, char*), int status_type, u32 arg){
+  int success;
+  getiv(arg, status_type, &success);
+  if (!success) {
+    char infoLog[512];
+    infologger(arg, 512, 0, infoLog);
+    println("{}", infoLog);
+  }
+}
+
 u32 Shader(u32 type, S *source, u32 program){
   u32 shader = glCreateShader(type);
+
   glShaderSource(shader, 1, source, NULL);
   glCompileShader(shader);
   glAttachShader(program, shader);
+
+  error(glGetShaderiv, glGetShaderInfoLog, GL_COMPILE_STATUS, shader);
+
   return shader;
 }
 
@@ -25,13 +39,7 @@ u32 Program(S &vs, S &fs){
   glDeleteShader(frag);
   glDeleteShader(vert);
   
-  int success;
-  glGetProgramiv(program, GL_LINK_STATUS, &success);
-  if (!success) {
-    char infoLog[512];
-    glGetProgramInfoLog(program, 512, NULL, infoLog);
-    println("shader error!: {}", infoLog);
-  }
-  
+  error(glGetProgramiv, glGetProgramInfoLog, GL_LINK_STATUS, program);
+
   return program;
 }

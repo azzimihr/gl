@@ -15,14 +15,14 @@ int main(){
   // glfwSwapInterval(0); // vsync disable
   gen(VAO, VBO);
 
-  // bindData(EBO, INDEX, indices, sizeof(indices));
+  // bindData(EBO, _EBO, indices, sizeof(indices));
 
   u32 p1 = Program(vs1, fs1);
-  u32 p2 = Program(vs1, fs2);
+  u32 p2 = Program(vs1, fs2);;
   u32 p3 = Program(vs2, fs3);
   
-  setup<vap{2, HALF}>               (vertices, 0, 0);
-  setup<vap{2, HALF}, vap{4, BYTE}> (vertices2, 1, 1);
+  setup<vap{2, HALF}               > (vertices, 0, 0);
+  setup<vap{2, SHORT}, vap{4, BYTE}> (vertices2, 1, 1);
   
   int fps = 0;;
   auto lastTime = chrono::high_resolution_clock::now();
